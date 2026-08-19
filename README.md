@@ -144,6 +144,18 @@ npm test             # 单元 + 集成测试（含 mock OAuth 服务器全流程
 测试覆盖：PKCE、元数据发现、动态注册、完整授权码流程（loopback）、refresh 轮换、revoke、
 插件级集成（连接/幂等/自动刷新/断开/重启恢复/按 token 授权动态挂载）。
 
+## 插件市场收录与搜索关键词 / Marketplace
+
+插件通过两条通道被 DeepSeek Harness 插件市场收录：
+
+1. **`dsh-plugin` topic**：仓库已打 `dsh-plugin` topic，[dsh-plugin-marketplace](https://github.com/AwesomeHou/dsh-plugin-marketplace)（设置页插件市场）据此自动收录；其搜索走 GitHub 仓库搜索（仓库名 / 描述 / topic）。
+2. **awesome-dsh-plugin 精选列表**：本插件已提交收录 PR（`data/plugins/duhu2000__qcc-mcp-legal-oauth.yml`），合并后 `dshmarket`（dsh-market 插件）即可浏览、搜索、一键安装。
+
+为便于中文 / 英文检索，已覆盖以下关键词：
+
+- 中文：**企查查**、**法律产品**、**法律数据**、**法规**、**案例**（写入仓库描述与精选列表 zh 描述）
+- 英文：**qcc**、**qichacha**、**legal**、**law**、**legal-tech**、**legal-data**、**regulation**、**case**（写入仓库名 / 描述 / topic / npm keywords）
+
 ## License
 
 MIT
