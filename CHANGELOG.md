@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.1.3] - 2026-08-19
+
+### 变更
+
+- README 安装指引与「插件市场收录」章节统一为推荐市场 **dshmarket**（人工精选 + PR 守门审核）；`dsh-plugin-marketplace` 等社区自动聚合改为「非官方、无审核、仅供知悉」口径，不再作为推荐入口。
+
+## [0.1.2] - 2026-08-19
+
+### 修复
+
+- `output.render` 由返回字符串改为返回 content 块数组（`[{ type: 'text', text }]`），修复工具调用时报 `content.some is not a function`（DSH 工具契约要求 render 返回块数组）。新增回归用例。
+
 ## [0.1.1] - 2026-08-19
 
 ### 变更

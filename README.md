@@ -21,7 +21,7 @@
 
 ### 🤖 让 Agent 安装（最省事，推荐给不熟悉命令行的用户）
 
-把下面的链接直接发给你的 DeepSeek Harness 对话（或使用 [dsh-plugin-marketplace](https://github.com/AwesomeHou/dsh-plugin-marketplace) 安装失败后出现的 **「让 Agent 安装」** 按钮）：
+把下面的链接直接发给你的 DeepSeek Harness 对话（推荐先在 [dshmarket](https://www.npmjs.com/package/dshmarket) 插件市场搜索「企查查法律数据」一键安装；市场直装失败时，同样把链接发给 Agent 即可代为安装）：
 
 ```
 帮我安装这个插件 https://github.com/duhu2000/qcc-mcp-legal-oauth
@@ -148,10 +148,10 @@ npm test             # 单元 + 集成测试（含 mock OAuth 服务器全流程
 
 ## 插件市场收录与搜索关键词 / Marketplace
 
-插件通过两条通道被 DeepSeek Harness 插件市场收录：
+本插件通过 DeepSeek Harness 推荐插件市场 **dshmarket** 收录（dshmarket 只安装 [awesome-dsh-plugin](https://github.com/awesome-dsh-plugin/awesome-dsh-plugin) 精选列表内的来源）：
 
-1. **`dsh-plugin` topic**：仓库已打 `dsh-plugin` topic，[dsh-plugin-marketplace](https://github.com/AwesomeHou/dsh-plugin-marketplace)（设置页插件市场）据此自动收录；其搜索走 GitHub 仓库搜索（仓库名 / 描述 / topic）。
-2. **awesome-dsh-plugin 精选列表**：本插件已提交收录 PR（`data/plugins/duhu2000__qcc-mcp-legal-oauth.yml`），合并后 `dshmarket`（dsh-market 插件）即可浏览、搜索、一键安装。
+1. **dshmarket（推荐，人工精选 + PR 守门审核）**：本插件已提交收录 PR（`data/plugins/duhu2000__qcc-mcp-legal-oauth.yml`），合并后即可在「设置 → 插件市场」浏览、搜索「企查查法律数据」并一键安装。
+2. **社区自动聚合（非官方、无审核，仅供知悉）**：仓库已打 `dsh-plugin` topic，[dsh-plugin-marketplace](https://github.com/AwesomeHou/dsh-plugin-marketplace) 等社区市场据此自动收录，搜索走 GitHub 仓库搜索（仓库名 / 描述 / topic），收录即时但无人工审核。
 
 为便于中文 / 英文检索，已覆盖以下关键词：
 
