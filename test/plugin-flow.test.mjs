@@ -271,6 +271,42 @@ test('重启恢复：storage 中有 grant 时 apply 自动恢复连接（无需�
   assert.equal(second.logs.some(([, m]) => m.includes('opening authorization page:')), false);
 });
 
+test('重启恢复失败（损坏 grant）：needsReauth 置位，不抛错、不自动重连', SKIP, async () => {
+  // 独立 mock：token 端点对未知 refresh_token 返回 invalid_grant
+  const badMock = await createMockQccServer({ expiresIn: 3600 });
+  const resources = {};
+  for (const key of Object.keys(QCC_RESOURCES)) resources[key] = `${badMock.base}/mcp/${key}/stream`;
+  const badConfig = { ...config, resources, issuer: badMock.base };
+
+  const tableStore = new Map();
+  // 损坏的持久化 grant：access_token 已过期 + 无效 refresh_token → 恢复时 refresh 失败
+  tableStore.set('grant:test', {
+    issuer: badMock.base,
+    clientId: 'wb_dyn_mock_0001',
+    clientName: 'DeepSeek Harness - QCC Legal MCP',
+    scope: 'mcp:tools',
+    entryResource: resources['legal-regulation'],
+    authorizedResources: Object.values(resources),
+    accessToken: 'expired-access-token',
+    accessTokenExpiresAt: Date.now() - 1000,
+    refreshToken: 'bad-refresh-token',
+    updatedAt: Date.now() - 3600_000,
+  });
+
+  const { ctx, tools, created, logs } = createFakeCtx(tableStore);
+  await plugin.apply(ctx, badConfig);
+
+  // 恢复失败：应记录 restore failed 并置位 needsReauth，而不是抛错中断 apply
+  assert.equal(logs.some(([, m]) => m.includes('restore failed')), true, '应记录 restore failed');
+  assert.equal(created.length, 0, '恢复失败不应创建任何条目');
+
+  const status = findTool(tools, 'qcc_legal_oauth_status');
+  const statusResult = await status.execute({}, { signal: new AbortController().signal });
+  assert.equal(statusResult.detail.needsReauth, true, 'needsReauth 应置位');
+
+  await badMock.close();
+});
+
 test('激活自动授权：无授权时 apply 自动发起 OAuth（autoConnectOnActivate 默认开启）', SKIP, async () => {
   const { ctx, tools, created, tableStore, logs } = createFakeCtx(new Map());
   const cfg = {
