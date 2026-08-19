@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.1.4] - 2026-08-19
+
+### 变更
+
+- 修正插件市场定性：`dsh-plugin` topic 为官方推荐发现渠道；`dshmarket` 为社区插件市场（人工精选 + PR 守门审核）；官方 CLI 为通用 pnpm 转发器，`dsh plugin --profile web add dshmarket` 系 dshmarket 依通用安装语提供，不再是「官方 CLI 引导装 dshmarket」口径。
+
 ## [0.1.3] - 2026-08-19
 
 ### 变更
