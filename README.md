@@ -96,6 +96,8 @@ dsh plugin --profile web add "link:$(pwd)"      # 或 pnpm add "file:$(pwd)"
 
 详见 [`docs/OAUTH-IMPLEMENTATION.md`](docs/OAUTH-IMPLEMENTATION.md)。
 
+工具清单与调用示例详见 [`docs/TOOLS.md`](docs/TOOLS.md)。
+
 ## 配置 / Configuration
 
 插件行位于 `~/.dsh/profiles/web/cordis.patch.yml`（bundle 合入后可见）：
