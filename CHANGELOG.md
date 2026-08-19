@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.1] - 2026-08-19
+
+### 变更
+
+- `extractTokenResources` 兼容 `resource` claim 为单个字符串（RFC 9068 允许字符串或数组）
+- npm 关键词与描述补全（中文：企查查/法律数据/法律产品；英文：legal/law/legal-tech/legal-data/mcp-client/mcp-server），便于插件市场检索
+- 新增 `docs/TOOLS.md`（工具清单与示例）、`docs/architecture.svg`（授权流程图）
+- README 增加「插件市场收录与搜索关键词」章节
+
+### 工程
+
+- 新增 `npm run verify-pack`：发布前校验 `npm pack` 产物只含白名单文件（防止 dev 文件夹带），并接入 CI
+- 新增损坏 grant 恢复失败 → `needsReauth` 的回归用例
+
 ## [0.1.0] - 2026-08
 
 首个可运行版本（企查查法律数据 MCP OAuth 插件）。
