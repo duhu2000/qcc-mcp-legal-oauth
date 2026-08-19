@@ -1,0 +1,54 @@
+{
+  "name": "qcc-dsh-mcp-legal-oauth",
+  "version": "0.1.0",
+  "description": "DeepSeek Harness \u63d2\u4ef6\uff1a\u4e00\u952e OAuth \u6388\u6743\u8fde\u63a5\u4f01\u67e5\u67e5\uff08Qichacha\uff09\u6cd5\u5f8b\u6570\u636e MCP\uff08\u6cd5\u89c4/reg \u6848\u4f8b\uff09 / One-click OAuth connect to Qichacha Legal MCP (regulation & case)",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js"
+  },
+  "files": [
+    "lib",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE",
+    "install.sh"
+  ],
+  "scripts": {
+    "test": "node --test",
+    "lint": "node --check lib/index.js && node --check lib/oauth.js && node --check lib/callback-server.js && node --check lib/grant-store.js && node --check lib/mcp-provision.js && node --check lib/tools.js && node --check lib/util.js && node --check lib/constants.js"
+  },
+  "keywords": [
+    "deepseek-harness",
+    "dsh",
+    "cordis",
+    "mcp",
+    "qichacha",
+    "qcc",
+    "oauth",
+    "pkce",
+    "legal",
+    "regulation",
+    "case"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/duhu2000/qcc-mcp-legal-oauth.git"
+  },
+  "homepage": "https://github.com/duhu2000/qcc-mcp-legal-oauth#readme",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "peerDependencies": {
+    "@deepseek-ai/dsh-mcp-client": "^0.1.0-rc.6",
+    "@deepseek-ai/schemastery": "^3.18.1",
+    "cordis": "^4.0.1",
+    "zod": "^4.4.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}
