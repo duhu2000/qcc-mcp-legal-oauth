@@ -94,6 +94,8 @@ dsh plugin --profile web add "link:$(pwd)"      # 或 pnpm add "file:$(pwd)"
 5. loopback 回调校验 `state` → 6. 授权码 + `code_verifier` 换 token
 7. 解析 token 实际授权的 resource（JWT claim），通过 `ctx.loader` 为授权的 `@deepseek-ai/dsh-mcp-client` 条目注入 Bearer header（法规+案例 2 个 / 仅法规 1 个）→ 8. 过期前自动刷新（轮换）
 
+![架构与授权流程](docs/architecture.svg)
+
 详见 [`docs/OAUTH-IMPLEMENTATION.md`](docs/OAUTH-IMPLEMENTATION.md)。
 
 工具清单与调用示例详见 [`docs/TOOLS.md`](docs/TOOLS.md)。

@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="460" viewBox="0 0 760 460" font-family="PingFang SC, Microsoft YaHei, sans-serif" font-size="13">
+  <defs>
+    <marker id="arr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#555"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="760" height="460" fill="#fbfbfd"/>
+  <text x="380" y="28" text-anchor="middle" font-size="16" font-weight="700" fill="#222">企查查法律数据 MCP OAuth 插件 · 架构与授权流程</text>
+
+  <!-- 节点 -->
+  <rect x="36" y="70" width="150" height="56" rx="8" fill="#eef4ff" stroke="#3b82f6"/>
+  <text x="111" y="94" text-anchor="middle" font-weight="700" fill="#1d4ed8">DeepSeek Harness</text>
+  <text x="111" y="112" text-anchor="middle" fill="#334">插件 apply()</text>
+
+  <rect x="36" y="210" width="150" height="56" rx="8" fill="#fff7e6" stroke="#f59e0b"/>
+  <text x="111" y="234" text-anchor="middle" font-weight="700" fill="#b45309">系统浏览器</text>
+  <text x="111" y="252" text-anchor="middle" fill="#334">用户登录授权</text>
+
+  <rect x="36" y="350" width="150" height="56" rx="8" fill="#f0fdf4" stroke="#22c55e"/>
+  <text x="111" y="374" text-anchor="middle" font-weight="700" fill="#15803d">loopback 回调</text>
+  <text x="111" y="392" text-anchor="middle" fill="#334">127.0.0.1:随机</text>
+
+  <rect x="440" y="70" width="180" height="56" rx="8" fill="#fdf2f8" stroke="#ec4899"/>
+  <text x="530" y="94" text-anchor="middle" font-weight="700" fill="#be185d">企查查 OAuth Server</text>
+  <text x="530" y="112" text-anchor="middle" fill="#334">DCR / authorize / token / revoke</text>
+
+  <rect x="440" y="210" width="180" height="56" rx="8" fill="#f1f5f9" stroke="#64748b"/>
+  <text x="530" y="234" text-anchor="middle" font-weight="700" fill="#334155">MCP Protected Resource</text>
+  <text x="530" y="252" text-anchor="middle" fill="#334">legal-regulation / legal-case</text>
+
+  <rect x="440" y="350" width="180" height="56" rx="8" fill="#ede9fe" stroke="#8b5cf6"/>
+  <text x="530" y="374" text-anchor="middle" font-weight="700" fill="#6d28d9">mcp-client 条目</text>
+  <text x="530" y="392" text-anchor="middle" fill="#334">serverName + Bearer header</text>
+
+  <!-- 流程箭头 -->
+  <line x1="186" y1="98" x2="438" y2="98" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="312" y="90" text-anchor="middle" font-size="12" fill="#555">1. 发现 OAuth/MCP 元数据 + DCR(client_id)</text>
+
+  <line x1="186" y1="238" x2="438" y2="238" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="312" y="230" text-anchor="middle" font-size="12" fill="#555">2. 打开授权页 scope=mcp:tools (PKCE)</text>
+
+  <line x1="36" y1="238" x2="36" y2="266" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <line x1="111" y1="266" x2="111" y2="348" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="20" y="310" font-size="12" fill="#555">3. 用户授权后回跳</text>
+
+  <line x1="186" y1="378" x2="438" y2="378" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="312" y="370" text-anchor="middle" font-size="12" fill="#555">4. code + code_verifier 换 token（轮换）</text>
+
+  <line x1="620" y1="266" x2="620" y2="348" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="632" y="310" font-size="12" fill="#555">5. JWT resource 反推已授权 Server</text>
+
+  <line x1="620" y1="126" x2="620" y2="208" stroke="#555" stroke-width="1.5" marker-end="url(#arr)"/>
+  <text x="632" y="172" font-size="12" fill="#555">6. Bearer 调用法律数据工具</text>
+
+  <!-- 注脚 -->
+  <text x="380" y="440" text-anchor="middle" font-size="12" fill="#777">token 持久化于 ~/.dsh/storages（0700）· 过期前自动刷新（轮换 + 单飞）· 断开 revoke</text>
+</svg>
