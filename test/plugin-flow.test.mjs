@@ -348,3 +348,15 @@ test('仅开通法规账号：token 不含 legal-case → 只创建 1 个条目�
   assert.equal(created.some((e) => e.config.serverName === 'legal-case'), false, 'legal-case 不应挂载');
   await personalMock.close();
 });
+
+test('输出契约：管理工具的 output.render 返回 content 块数组（非字符串）', SKIP, async () => {
+  const { ctx, tools } = createFakeCtx(new Map());
+  await plugin.apply(ctx, config);
+
+  for (const name of ['qcc_legal_oauth_connect', 'qcc_legal_oauth_status', 'qcc_legal_oauth_disconnect']) {
+    const tool = findTool(tools, name);
+    const content = tool.output.render({}, { ok: true, message: 'hi', detail: {} });
+    assert.equal(Array.isArray(content), true, `${name}.render 应返回数组`);
+    assert.deepEqual(content, [{ type: 'text', text: 'hi' }]);
+  }
+});
