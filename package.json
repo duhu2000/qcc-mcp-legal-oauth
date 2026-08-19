@@ -1,6 +1,6 @@
 {
   "name": "qcc-dsh-mcp-legal-oauth",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "DeepSeek Harness 插件：一键 OAuth 授权连接企查查（Qichacha）法律数据 MCP（法律产品：法规/reg 案例） / One-click OAuth connect to Qichacha Legal MCP (regulation & case)",
   "type": "module",
   "main": "lib/index.js",
