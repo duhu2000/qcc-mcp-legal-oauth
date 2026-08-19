@@ -292,6 +292,12 @@ test('extractTokenResources：token 只授权法规（resource 不含 case）→
   assert.equal(result.includes('https://agent.qcc.com/mcp/case/stream'), false);
 });
 
+test('extractTokenResources：resource 为单字符串（RFC 9068 允许字符串或数组）→ 返回 1 个', () => {
+  const jwt = makeJwt({ resource: 'https://agent.qcc.com/mcp/regulation/stream' });
+  const result = extractTokenResources(jwt);
+  assert.deepEqual(result, ['https://agent.qcc.com/mcp/regulation/stream']);
+});
+
 test('extractTokenResources：非 JWT token → null（fallback 全量）', () => {
   assert.equal(extractTokenResources('mock-at-abc123'), null);
   assert.equal(extractTokenResources('not-a-jwt-at-all'), null);
