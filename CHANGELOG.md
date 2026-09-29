@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.1.5] - 2026-09-30
+
+### 修复
+
+- **兼容 DSH 0.2.0-rc.2 的安装前置校验**：`peerDependencies["@deepseek-ai/dsh-mcp-client"]` 由 `^0.1.0-rc.6` 放宽为 `>=0.1.0-rc.6 <0.3.0`。0.2.0-rc.2 起，宿主在 `dsh plugin add` 时按 `semver.satisfies(runtime, range, { includePrerelease: true })` 校验每个 `@deepseek-ai/dsh*` peer，`^0.1.0-rc.6` 判定为不兼容并以 `incompatible-version` 拒绝安装（旧版需 `allow-version --accept-risk` 豁免才能装）。
+- 补齐缺失的 peer 声明：插件 `lib/grant-store.js` 运行时导入 `@deepseek-ai/dsh-storage-domain`（`defineDomain`/`domainTable`），但此前未在 `peerDependencies` 中声明；现声明为 `>=0.1.0-rc.6 <0.3.0`。
+
+### 变更
+
+- `cordis` 标记为可选 peer（`peerDependenciesMeta`）：它只出现在 JSDoc 类型位置（`import('cordis').Context`），运行时不导入，标记 optional 可消除安装时的无关 peer 警告。
+
+### 兼容性验证（DSH 0.2.0-rc.2）
+
+- `@deepseek-ai/dsh-mcp-client` 0.2.0-rc.2 的 `transport: 'streamable-http'` 配置形状与本插件 `buildEntryConfig()` 产出的 `{ transport, serverName, url, headers, failOnStartupError }` 一致。
+- `ctx.loader` 的 `resolve(id)` / `create(options)` / `update(id, options)` / `remove(id)` 在 0.2.0-rc.2 中签名不变（`vendor/loader/src/config/tree.ts`）。
+- `ctx.storageDomain.open(spec)` 与 `defineDomain` / `domainTable` 导出在 `@deepseek-ai/dsh-storage-domain` 0.2.0-rc.2 中不变。
+- `@deepseek-ai/schemastery` 宿主版本 3.18.4，满足 `^3.18.1`。
+
 ## [0.1.4] - 2026-08-19
 
 ### 变更
