@@ -16,7 +16,11 @@ const WHITELIST = [
 
 let raw;
 try {
-  raw = execFileSync('npm', ['pack', '--dry-run', '--json'], {
+  // npm run 提供 CLI 路径；通过 Node 启动也支持 Windows（无需 shell 执行 npm.cmd）。
+  const npmCli = process.env.npm_execpath;
+  raw = execFileSync(npmCli ? process.execPath : 'npm', [
+    ...(npmCli ? [npmCli] : []), 'pack', '--dry-run', '--json',
+  ], {
     encoding: 'utf8',
     maxBuffer: 64 * 1024 * 1024,
     stdio: ['ignore', 'pipe', 'pipe'],
@@ -27,7 +31,9 @@ try {
   process.exit(1);
 }
 
-const [pack] = JSON.parse(raw);
+// npm 10/11 返回数组，npm 12 返回以包名为键的对象。
+const result = JSON.parse(raw);
+const [pack] = Array.isArray(result) ? result : Object.values(result);
 if (!pack || !Array.isArray(pack.files)) {
   console.error('verify-pack: 无法解析 `npm pack --dry-run --json` 输出');
   process.exit(1);

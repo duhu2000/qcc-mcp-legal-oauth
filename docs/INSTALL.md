@@ -2,7 +2,7 @@
 
 ## 前置条件
 
-- DeepSeek Harness（`dsh` CLI）已安装，web profile 可用（`dsh web` 能启动）
+- DeepSeek Harness **0.2.0-rc.2**（`dsh` CLI）已安装，web profile 可用（`dsh web` 能启动）；使用插件 **0.1.5 或以上的适配版本**
 - Node.js ≥ 20
 - 一个企查查账号（用于在授权页登录授权；法律数据 MCP 需账号已开通法规/案例权限）
 
@@ -57,6 +57,30 @@ dsh plugin --profile web remove qcc-dsh-mcp-legal-oauth
 ```
 
 ## 常见问题
+
+### 提示 0.1.4 与 DSH 0.2.0-rc.2 不兼容？
+
+旧版插件声明 `@deepseek-ai/dsh-mcp-client: ^0.1.0-rc.6`，不包含 0.2.0-rc.2。请先停止 DSH，再安装修复版。
+
+在本仓库目录执行（无需等待 npm 发布）：
+
+```bash
+npm pack
+dsh plugin --profile web add ./qcc-dsh-mcp-legal-oauth-0.1.5.tgz
+```
+
+或在 0.1.5 发布后运行 `dsh plugin --profile web add qcc-dsh-mcp-legal-oauth@0.1.5`。完成后重启 `dsh web`。
+
+### 如何运行完整开发测试？
+
+```bash
+npm install --ignore-scripts --legacy-peer-deps --no-package-lock
+npm run lint
+npm test
+npm run verify-pack
+```
+
+开发依赖固定为 DSH 0.2.0-rc.2 对应的 Cordis、存储域等真实包；`--legacy-peer-deps` 仅用于此隔离测试环境，避免安装完整宿主。CI 设置 `QCC_REQUIRE_HOST_DEPS=1`，依赖加载失败时直接失败，防止插件集成测试被跳过。
 
 ### 安装后工具不出现？
 1. 确认 `dsh plugin --profile web add` 成功（profile node_modules 里有 `qcc-dsh-mcp-legal-oauth`）；

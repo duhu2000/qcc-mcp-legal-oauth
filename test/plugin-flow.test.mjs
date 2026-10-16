@@ -12,15 +12,16 @@ import assert from 'node:assert/strict';
 import { createMockQccServer } from './mock-oauth-server.mjs';
 import { QCC_RESOURCES } from '../lib/constants.js';
 
-// 插件入口依赖 DSH host 包（schemastery/storage-domain 等）；CI 无 host 依赖时优雅跳过
+// 本地无 host 包时可跳过；CI 要求真实依赖可加载，加载失败则直接报错。
 let plugin;
 try {
   plugin = await import('../lib/index.js');
 } catch (error) {
+  if (process.env.QCC_REQUIRE_HOST_DEPS === '1') throw error;
   console.warn(`[plugin-flow] host deps unavailable, skipping: ${error.message}`);
 }
 
-const SKIP = { skip: plugin ? false : '需要 DSH host 依赖（见 test/setup-deps.sh）；CI 环境跳过' };
+const SKIP = { skip: plugin ? false : '需要 DSH host 依赖（见 docs/INSTALL.md）' };
 
 let mock;
 let config;
