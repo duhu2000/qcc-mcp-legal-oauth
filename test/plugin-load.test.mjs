@@ -3,8 +3,8 @@
  *   - 模块可导入，导出 name/inject/Config/apply
  *   - schemastery Config 能解析插件默认配置
  *   - storage-domain spec 合法、grant schema 能解析样例
- * 说明：需要 node_modules 指向 host 依赖（见 test/setup-deps.sh）。
- *       CI/无 host 依赖环境下自动跳过（OAuth 核心逻辑不受影响）。
+ * 说明：开发依赖提供真实 host 包（见 docs/INSTALL.md）。
+ *       本地无依赖时自动跳过；CI 要求依赖可加载。
  */
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
@@ -18,6 +18,7 @@ try {
   plugin = await import('../lib/index.js');
   ({ defineQccGrantDomain, grantRecordSchema, buildGrant } = await import('../lib/grant-store.js'));
 } catch (error) {
+  if (process.env.QCC_REQUIRE_HOST_DEPS === '1') throw error;
   // host 依赖（@deepseek-ai/schemastery / dsh-storage-domain / zod）不可用时跳过
   plugin = null;
   console.warn(`[plugin-load] host deps unavailable, skipping: ${error.message}`);
